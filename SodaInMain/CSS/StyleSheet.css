@@ -1,0 +1,126 @@
+﻿body {
+    background-image:url(https://us.123rf.com/450wm/rez_art/rez_art1409/rez_art140900159/31616002-soft-drink-being-poured-into-glass.jpg?ver=6);
+    background-attachment:fixed;
+    background-repeat:no-repeat;
+    background-size:cover;
+    margin:auto;
+}
+
+#lock {
+    margin-left:32%;
+    
+    
+}
+
+#user1  {
+    border:3px solid white;
+    border-radius: 20px;
+    height:259px;
+    width:260px;
+    
+}
+
+#user1:hover , #user2:hover{
+    cursor:pointer;
+
+    border-color:red;
+}
+
+#user2 { border: 3px solid white;
+        border-radius:20px;
+       
+        margin-left: 270px;
+        height:259px;
+        width:260px;
+
+}
+
+.users:hover{
+    cursor:pointer;
+
+    border-color:red;
+}
+
+.users {
+        border: 3px solid white;
+        border-radius:20px;
+        height:259px;
+        width:260px;
+
+
+}
+
+#header2 {
+    color:white;
+    font-family:'Berlin Sans FB';
+    text-align:center;
+}
+
+#formclass   {
+   
+    padding:20px;
+    margin-top:140px;
+    margin-left:35%;
+    background: rgba(5, 5, 5, 0.5);
+    width:400px;
+    border-radius:20px;
+    
+
+    
+}
+
+#choice {
+    color:white;
+    font-family:'Berlin Sans FB';
+    text-align:left;
+    margin-left:90px;
+    display:inline-block;
+}
+
+#choice2 {
+    color:white;
+    font-family:'Berlin Sans FB';
+    text-align:right;
+    margin-top:-100px;
+    margin-left:160px;
+    display:inline-block;
+}
+
+
+
+
+
+#formclass2   {
+   
+    padding:20px;
+    margin-top:140px;
+    margin-left:30%;
+    background: rgba(5, 5, 5, 0.5);
+    width:570px; 
+    border-radius:20px;
+    
+
+    
+}
+
+
+
+input{
+   
+    padding:2px;
+    width:100%;
+    
+}
+
+#page {
+    text-align:center;
+    color:white;
+    font-family:Blockletter;
+
+}
+#Button1 {
+   font-family:'Anja Eliane Nornal';
+   font-size:20px;
+   color:black;
+
+}

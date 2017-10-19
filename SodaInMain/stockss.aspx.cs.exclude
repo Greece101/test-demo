@@ -1,0 +1,135 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+public partial class stockss : System.Web.UI.Page
+{
+
+    SqlConnection sqlCon = new SqlConnection("Data Source=GREECE\\SQLEXPRESS;Initial Catalog=login_page;Integrated Security=True");
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+    }
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            if (txtPid.Text == "" || txtPname.Text == "" || txtPtype.Text == "" || txtPrice.Text == "" || txtStock.Text == "")
+            {
+                
+            }
+            else
+            {
+                error1.Visible = false;
+                sqlCon.Open();
+
+                SqlCommand sqlCmd = sqlCon.CreateCommand();
+                sqlCmd.CommandType = CommandType.Text;
+                sqlCmd.CommandText = "insert into tblStocks values('" + txtPname.Text + "','" + txtPtype.Text + "','" + txtPrice.Text + "','" + txtStock.Text + "')";
+                sqlCmd.ExecuteNonQuery();
+                sqlCon.Close();
+            }
+        }
+        catch (Exception ex)
+        {
+            lblErrorMessage.Text = ex.Message;
+        }
+        
+    }
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            if (txtPid.Text == "" || txtPname.Text == "" || txtPtype.Text == "" || txtPrice.Text == "" || txtStock.Text == "")
+            {
+                error1.Text = "Please Fill up the form!";
+                error2.Text = "Please Fill up the form!";
+                error3.Text = "Please Fill up the form!";
+                error4.Text = "Please Fill up the form!";
+                error5.Text = "Please Fill up the form!";
+            }
+            sqlCon.Open();
+            SqlCommand sqlCmd = sqlCon.CreateCommand();
+            sqlCmd.CommandType = CommandType.Text;
+            sqlCmd.CommandText = "delete from tblStocks where ProductName = '" + txtPname.Text + "'";
+            sqlCmd.ExecuteNonQuery();
+            sqlCon.Close();
+        }
+        catch (Exception ex)
+        {
+            lblErrorMessage.Text = ex.Message;
+        }
+    
+    }
+    protected void Button4_Click(object sender, EventArgs e)
+    {
+
+        sqlCon.Open();
+        SqlCommand sqlCmd = sqlCon.CreateCommand();
+        sqlCmd.CommandType = CommandType.Text;
+        sqlCmd.CommandText = "select *  from tblStocks";
+        sqlCmd.ExecuteNonQuery();
+        DataTable dt = new DataTable();
+        SqlDataAdapter da = new SqlDataAdapter(sqlCmd);
+        da.Fill(dt);
+        GridView1.DataSource = dt;
+        GridView1.DataBind();
+        
+
+
+        sqlCon.Close();
+    }
+
+
+    protected void Update_Click(object sender, EventArgs e)
+    {// 
+        try
+        {
+            if (txtPid.Text == "" || txtPname.Text == "" || txtPtype.Text == "" || txtPrice.Text == "" || txtStock.Text == "")
+            {
+                error1.Text = "Please Fill up the form!";
+                error2.Text = "Please Fill up the form!";
+                error3.Text = "Please Fill up the form!";
+                error4.Text = "Please Fill up the form!";
+                error5.Text = "Please Fill up the form!";
+            }
+        sqlCon.Open();
+        SqlCommand sqlCmd = sqlCon.CreateCommand();
+    //    sqlCmd.CommandType = CommandType.StoredProcedure
+        sqlCmd.CommandType = CommandType.Text;
+        sqlCmd.CommandText = " update tblStocks set  ProductName ='" + txtPname.Text + "', ProductType ='" + txtPtype.Text + "', Price='" + txtPrice.Text + "', Stock='" + txtStock.Text + "'  where ProductID ='" + txtPid.Text + "'";
+        sqlCmd.ExecuteNonQuery();
+        sqlCon.Close();
+        }
+        catch (Exception ex)
+        {
+            lblErrorMessage.Text = ex.Message;
+        }
+    }
+    protected void Button1_Click1(object sender, EventArgs e)
+    {
+        Clear();
+    }
+
+    public void Clear()
+    {
+        hfProductID.Value = "";
+        txtPname.Text = txtPtype.Text = txtPrice.Text = txtStock.Text = "";
+        lblSuccessMessage.Text = lblErrorMessage.Text = "";
+        Save.Text = "Save";
+        Delete.Enabled = false;
+    }
+    protected void hfProductID_ValueChanged(object sender, EventArgs e)
+    {
+    
+    }
+    protected void txtPid_TextChanged(object sender, EventArgs e)
+    {
+       
+    }
+}

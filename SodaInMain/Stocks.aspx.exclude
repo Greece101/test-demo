@@ -1,0 +1,153 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Stocks.aspx.cs" Inherits="_Default" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div id="stockmain">
+       
+            <asp:HiddenField ID="hfProductID" runat="server" />
+            <table>
+                <tr>
+
+                    <td>
+
+                        <asp:Label ID="Label1" runat="server" Text="Product Name"></asp:Label>
+                    </td>
+
+                    <td colspan="2">
+
+                        <asp:TextBox ID="txtPname" runat="server"></asp:TextBox>
+                    </td>
+
+
+                </tr>
+
+                 <tr>
+
+                    <td>
+
+                        <asp:Label ID="Label2" runat="server" Text="Product Type"></asp:Label>
+                    </td>
+
+                    <td colspan="2">
+
+                        <asp:TextBox ID="txtPtype" runat="server"></asp:TextBox>
+                    </td>
+
+
+                </tr>
+
+                 <tr>
+
+                    <td>
+
+                        <asp:Label ID="Label3" runat="server" Text="Price"></asp:Label>
+                    </td>
+
+                    <td colspan="2">
+
+                        <asp:TextBox ID="txtPrice" runat="server"></asp:TextBox>
+                    </td>
+
+
+                </tr>
+
+                 <tr>
+
+                    <td>
+
+                        <asp:Label ID="Label4" runat="server" Text="Stock"></asp:Label>
+                    </td>
+
+                    <td colspan="2">
+
+                        <asp:TextBox ID="txtStock" runat="server" ></asp:TextBox>
+                    </td>
+
+
+                </tr>
+
+                 <tr>
+
+                    <td>
+                     
+                     
+                    </td>
+
+                    <td colspan="2">
+
+                           <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />
+                           <asp:Button ID="btnDelete" runat="server" Text="Delete" />
+                           <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="btnClear_Click" />
+                    </td>
+
+
+                </tr>
+
+                  <tr>
+                      <td>
+
+
+                      </td>
+
+                    <td colspan="2">
+                        <asp:Label ID="lblSuccessMessage" runat="server" Text="" ForeColor="Green"></asp:Label>
+                     
+                    </td>
+
+                      <td>
+
+
+                      </td>
+
+                    <td colspan="2">
+
+                        &nbsp;</td>
+
+
+                </tr>
+
+
+            </table>
+
+                        <asp:Label ID="lblErrorMessage" runat="server" Text="" ForeColor="Red"></asp:Label>
+                           
+            <br />
+            <asp:GridView ID="gvProduct" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1">
+
+                <Columns>
+                    <asp:BoundField DataField="ProductName" HeaderText="Product Name" />
+                    <asp:BoundField DataField="ProductType" HeaderText="Product Type" />
+                    <asp:BoundField DataField="Price" HeaderText="Price" />
+                    <asp:BoundField DataField="Stock" HeaderText="Stock" />
+
+                    <asp:TemplateField>
+
+                        <ItemTemplate>
+                            <asp:LinkButton ID="lnkView" runat="server" CommandArgument='<%# Eval("ProductID") %>'>View</asp:LinkButton>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+                </Columns>
+            </asp:GridView>
+     
+
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server"></asp:SqlDataSource>
+     
+
+            </div>
+        <asp:Button ID="Button1" runat="server" OnClientClick="javascript:window.close();" Text="&lt;&lt;Back" />
+    </form>
+
+
+
+
+
+
+</body>
+</html>

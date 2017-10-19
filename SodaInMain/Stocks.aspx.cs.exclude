@@ -1,0 +1,165 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class _Default : System.Web.UI.Page
+{
+    //SqlConnection sqlCon = new SqlConnection(@"Data Source=(local)/sql2012;Initial Catalog=login_page;Integrated Security=true;");
+     SqlConnection sqlCon = new SqlConnection("Data Source=GREECE\\SQLEXPRESS;Initial Catalog=login_page;Integrated Security=True");
+
+     protected void Page_Load(object sender, EventArgs e)
+     {
+         /*   if (!IsPostBack)
+            {
+                btnDelete.Enabled = false;
+                FillGridView();
+            }
+     
+        }
+        protected void btnClear_Click(object sender, EventArgs e)
+        {
+            Clear();
+        }
+
+        public void Clear()
+        {
+            hfProductID.Value = "";
+            txtPname.Text = txtPtype.Text = txtPrice.Text = txtStock.Text = "";
+            lblSuccessMessage.Text = lblErrorMessage.Text = "";
+            btnSave.Text = "Save";
+            btnDelete.Enabled = false;
+
+        }
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            if (sqlCon.State == System.Data.ConnectionState.Closed)
+                sqlCon.Open();
+            SqlCommand sqlCmd = new SqlCommand("ProductCreateOrUpdate",sqlCon);
+            sqlCmd.CommandType = CommandType.StoredProcedure;
+            sqlCmd.Parameters.AddWithValue("@ProductID", (hfProductID.Value==""? 0 : Convert.ToInt32(hfProductID.Value)));
+            sqlCmd.Parameters.AddWithValue("@ProductName", txtPname.Text.Trim());
+            sqlCmd.Parameters.AddWithValue("@ProductType", txtPtype.Text.Trim());
+            sqlCmd.Parameters.AddWithValue("@Price", txtPrice.Text.Trim());
+            sqlCmd.Parameters.AddWithValue("@Stock", txtStock.Text.Trim());
+            sqlCmd.ExecuteNonQuery();
+            sqlCon.Close();
+
+            Clear();
+            if (hfProductID.Value == "")
+                lblSuccessMessage.Text = "Saved Successfully";
+            else
+                lblErrorMessage.Text = "Updated Successfully";
+            FillGridView();
+        }
+
+        void FillGridView()
+        {
+            if (sqlCon.State == System.Data.ConnectionState.Closed)
+                sqlCon.Open();
+           SqlDataAdapter sqlDa = new SqlDataAdapter("ProductViewAll", sqlCon);
+           sqlDa.SelectCommand.CommandType = CommandType.StoredProcedure;
+            DataTable dtbl = new DataTable();
+            sqlDa.Fill(dtbl);
+            sqlCon.Close();
+            gvStock.DataSource=dtbl;
+            gvStock.DataBind();
+
+
+        }
+
+        protected void lnk_OnClick (object sender, EventArgs e)
+        {
+            int ProductID = Convert.ToInt32((sender as LinkButton).CommandArgument);
+       
+            if (sqlCon.State == System.Data.ConnectionState.Closed)
+                sqlCon.Open();
+            SqlDataAdapter sqlDa = new SqlDataAdapter("ProductViewByID", sqlCon);
+            sqlDa.SelectCommand.CommandType = CommandType.StoredProcedure;
+            sqlDa.SelectCommand.Parameters.AddWithValue("@ProductID",sqlCon);
+            DataTable dtbl = new DataTable();
+            sqlDa.Fill(dtbl);
+            sqlCon.Close();
+            hfProductID.Value = ProductID.ToString();
+            txtPname.Text = dtbl.Rows[0]["ProductName"].ToString();
+            txtPtype.Text = dtbl.Rows[0]["ProductType"].ToString();
+            txtPrice.Text = dtbl.Rows[0]["Price"].ToString();
+            txtStock.Text = dtbl.Rows[0]["Stock"].ToString();
+            btnSave.Text = "Update";
+            btnDelete.Enabled = true;
+
+        }
+
+        protected void gvStock_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }*/
+
+     /*    if (!IsPostBack)
+         {
+
+
+
+             btnDelete.Enabled = false;
+         }
+
+     }
+
+
+
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        Clear();
+    }
+
+    public void Clear()
+    {
+        hfProductID.Value = "";
+        txtPname.Text = txtPtype.Text = txtPrice.Text = txtStock.Text = "";
+        lblSuccessMessage.Text = lblErrorMessage.Text = "";
+        btnSave.Text = "Save";
+        btnDelete.Enabled = false;
+    }
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        if (sqlCon.State == ConnectionState.Closed)
+            sqlCon.Open();
+        SqlCommand sqlCmd = new SqlCommand("ProductCreateOrUpdate",sqlCon);
+        sqlCmd.CommandType = CommandType.StoredProcedure;
+        sqlCmd.Parameters.AddWithValue("@ProductID",(hfProductID.Value==""?0:Convert.ToInt32(hfProductID.Value)));
+        sqlCmd.Parameters.AddWithValue("@ProductName", txtPname.Text.Trim());
+        sqlCmd.Parameters.AddWithValue("@ProductType", txtPtype.Text.Trim());
+        sqlCmd.Parameters.AddWithValue("@Price", txtPrice.Text.Trim());
+        sqlCmd.Parameters.AddWithValue("@Stock",txtStock.Text.Trim() );
+        sqlCmd.ExecuteNonQuery();
+        sqlCon.Close();
+        Clear();
+        if (hfProductID.Value == "")
+            lblSuccessMessage.Text = "Saved Successfully";
+        else
+            lblErrorMessage.Text = "Updated Successfully";
+         */
+
+
+
+
+    }
+     protected void btnSave_Click(object sender, EventArgs e)
+     {
+         sqlCon.Open();
+         SqlCommand sqlCmd = sqlCon.CreateCommand();
+         sqlCmd.CommandType = CommandType.Text;
+         sqlCmd.CommandText = "insert into tblStock values ('" + txtPname.Text + "','" + txtPtype.Text + "','" + txtPrice.Text + "','" + txtStock.Text + "')";
+
+
+         sqlCon.Close();
+     }
+     protected void btnClear_Click(object sender, EventArgs e)
+     {
+
+     }
+}

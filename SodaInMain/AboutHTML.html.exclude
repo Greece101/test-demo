@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+<head>
+    <title>About</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="StyleSheetABOUT.css" rel="stylesheet" />
+
+   </head>
+<body>
+    <!-- for the gallery part -->
+<div id="main">
+
+<p id="intro">Time is GOLD cause the FUTURE is here. As millennial programmers we would like to help our country, we want to innovate the high technology
+ here in the Philippines to make the works of our Filipino people much easier and faster. We can help through our little ways. We started to help a small 
+company in their inventory system, it is the Canteen of STI College Cebu. We made a website where the manager of the canteen can access it and do the computer-based
+ inventory, where they will only input data through typing  instead of writing it down in a piece of paper.This makes the inventory less-time consuiming and easier.
+It is also user-friendly and useful for busy people like them.
+</p>
+
+<!-- Portfolio Gallery Grid -->
+<div class="row">
+  <div class="column">
+    <div class="content">
+      <img src="/images/wtfteam.jpg" style="width:100%">
+      <h3>WTF team</h3>
+        <h4>Where's the food?</h4>
+      <h5>Programmers:</h5>
+      <p>Grace Arda, John Francis Chua and Johan Perry Cuizon</p>
+        
+       <h5>Manager:</h5>
+       <p>Judea Christene Matuguinas</p>
+       
+       <h5>Web developer:</h5>
+        <p>Emmanuel More</p>
+        <br>
+    </div>
+  </div>
+  <div class="column">
+    <div class="content">
+    <img src="/images/sticampus.jpg"  style="width:100%">
+      <h3>STI COLLEGE CEBU</h3>
+      <p>All the members of the WTF (Where's The Food?) team are studying at STI COLLEGE CEBU, they are all Grade 12- ICT students.The school is molding them as competitive individuals, so that after they graduated from Senior High School they are job ready and life ready.</p>
+    
+    </div>
+  </div>
+  <div class="column">
+    <div class="content">
+    <img src="/images/Canteen.jpg" style="width:100%">
+      <h3>Canteen of STI COLLEGE CEBU</h3>
+      <p>The canteen of STI COLLEGE CEBU is small type of canteen, but once your inside it all your money will be spent for the foods and drinks.But no matter how big or small the canteen is, it is still filled with delicious food to eat.</p>
+    
+    <br>
+        <br>
+        <br>
+    </div>
+  </div>
+  <div class="column">
+    <div class="content">
+    <img src="/images/foods.jpg"  style="width:100%">
+      <h3>Inventory System</h3>
+      <p>Inventory management software is a software system for tracking inventory levels, orders, sales and deliveries. It can also be used in the manufacturing industry to create a work order, bill of materials and other production-related documents.
+          <br>
+          <br>
+          <br>
+  </div>
+</div>
+</div>
+
+    </div>
+</body>
+</html>
+

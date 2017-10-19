@@ -1,0 +1,282 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+
+public partial class testingg : System.Web.UI.Page
+{
+    private SqlConnection conn = new SqlConnection("Data Source=GREECE\\SQLEXPRESS;Initial Catalog=login_page;Integrated Security=True");
+    string str;
+    int count;
+    SqlCommand com;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if(!IsPostBack)
+        {
+            gvBind();
+        }
+
+   
+      
+    }
+
+    protected void gvBind()
+{
+        conn.Open();
+        SqlCommand cmd = new SqlCommand ("Select * from tblStocks",conn);
+        SqlDataAdapter da = new SqlDataAdapter (cmd);
+        DataSet ds = new DataSet();
+        da.Fill(ds);
+        conn.Close();
+        
+        if (ds.Tables[0].Rows.Count > 0)
+        {
+            GridView1.DataSource = ds;
+           GridView1.DataBind();
+        }
+        else {
+            ds.Tables[0].Rows.Add(ds.Tables[0].NewRow());
+            GridView1.DataSource = ds;
+            GridView1.DataBind();
+            int columncount = GridView1.Rows[0].Cells.Count;
+            GridView1.Rows[0].Cells.Clear();
+            GridView1.Rows[0].Cells.Add(new TableCell());
+            GridView1.Rows[0].Cells[0].ColumnSpan = columncount;
+            GridView1.Rows[0].Cells[0].Text = "No data found!";
+            GridView1.Rows[0].Cells[0].VerticalAlign = VerticalAlign.Bottom;
+
+        //    ds.Tables[0].Rows.Add(ds.Tables[0].NewRow());
+
+
+        }
+
+}
+    protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        GridView1.PageIndex = e.NewPageIndex;
+        gvBind();
+    }
+    protected void GridView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+    {
+        GridView1.EditIndex = -1;
+        gvBind();
+    }
+    protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+        GridViewRow row = (GridViewRow) GridView1.Rows[e.RowIndex];
+        Label lbldeletedid = (Label) row.FindControl("lblID");
+        conn.Open();
+        SqlCommand cmd = new SqlCommand("delete FROM tblStocks where ProductID='" +Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Value.ToString())+ "'", conn );
+        cmd.ExecuteNonQuery();
+        conn.Close();
+        gvBind();
+    }
+    protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
+    {
+        GridView1.EditIndex = e.NewEditIndex;
+        gvBind();
+    }
+    protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
+    {
+        int userid = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Value.ToString());
+        GridViewRow row = (GridViewRow) GridView1.Rows[e.RowIndex];
+        Label lblID = (Label) row.FindControl("lblID");
+       
+        TextBox txtPname = (TextBox) row.Cells[0].Controls[0];
+        TextBox txtPtype = (TextBox) row.Cells[1].Controls[0];
+        TextBox txtPrice = (TextBox) row.Cells[2].Controls[0];
+        TextBox txtStock = (TextBox)row.Cells[3].Controls[0];
+    
+
+        GridView1.EditIndex = -1;
+        conn.Open();
+        
+        SqlCommand cmd = new SqlCommand("update tblStocks set ProductName='" + txtPname.Text + "', ProductType='" + txtPtype.Text + "', Price='" + txtPrice.Text + "', Stock='" + txtStock.Text + "'  where ProductID = '" + userid + "'", conn);
+        cmd.ExecuteNonQuery();
+        conn.Close();
+        gvBind();
+
+        lblresult.Text = "Updated Successfuley!";
+    
+    }
+    protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+       
+    }
+    protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            
+
+            if (txtPname.Text == "" || txtPtype.Text == "" || txtPrice.Text == "" || txtStock.Text == "")
+            {
+                lblresult.Text = "Please fill up all the information";
+            }
+            else
+            {
+                
+                lblresult.Visible = false;
+                conn.Open();
+               //augid();
+                SqlCommand sqlCmd = conn.CreateCommand();
+                sqlCmd.CommandType = CommandType.Text;
+                sqlCmd.CommandText = "insert into tblStocks values('" + txtPname.Text + "','" + txtPtype.Text + "','" + txtPrice.Text + "','" + txtStock.Text + "')";
+                sqlCmd.ExecuteNonQuery();
+                conn.Close();
+                Response.Redirect("~/testingg.aspx");
+            }
+        }
+        catch (Exception ex)
+        {
+            lblresult.Text = ex.Message;
+        }
+    }
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+       
+    try
+        {
+            
+
+            if (txtPname.Text == "" || txtPtype.Text == "" || txtPrice.Text == "" || txtStock.Text == "")
+            {
+                lblresult.Text = "Please fill up all the information";
+            }
+            else
+            {
+                
+                lblresult.Visible = false;
+                conn.Open();
+               //augid();
+                SqlCommand sqlCmd = conn.CreateCommand();
+                sqlCmd.CommandType = CommandType.Text;
+                sqlCmd.CommandText = "insert into tblStocks values('" + txtPname.Text + "','" + txtPtype.Text + "','" + txtPrice.Text + "','" + txtStock.Text + "')";
+                sqlCmd.ExecuteNonQuery();
+                conn.Close();
+                Response.Redirect("~/testingg.aspx");
+            }
+        }
+        catch (Exception ex)
+        {
+            lblresult.Text = ex.Message;
+        }
+   }
+    public String augid()
+    {
+        str = "select count(*) from tblStocks";
+
+        com = new SqlCommand(str, conn);
+
+        conn.Open();
+
+        count = Convert.ToInt16(com.ExecuteScalar()) + 1;
+
+        txtPid.Text = "FD" + count;
+
+        conn.Close();
+        return txtPid.Text;
+    }
+    /*
+    protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
+    {
+        SqlCommand objcmd = new SqlCommand("Select * from tblStocks where ProductName='" + args.Value + "'", conn);
+        SqlDataReader objReader;
+        conn.Open();
+        objReader = objcmd.ExecuteReader();
+
+        if (objReader.HasRows)
+        {
+            args.IsValid = false;
+        }
+        else
+        {
+            args.IsValid = true;
+        }
+        conn.Close();
+    }*/
+    protected void Button1_Click(object sender, EventArgs e)
+
+    {/* {
+        if (dr.HasRows)
+        {
+            dr.Read();
+
+            rep_bind();
+            GridView1.Visible = true;
+
+            TextBox1.Text = "";
+            Label2.Text = "";
+        }
+        else
+        {
+            GridView1.Visible = false;
+            Label2.Visible = true;
+            Label2.Text = "the search term " + TextBox1.Text + "*nbsp;is not available in the records"; ;
+        }*/
+   
+
+}
+ 
+
+  /*  private void rep_bind()
+    {
+       //  connection();
+        string query = "select * from tblStocks where ProductName like '" + TextBox1.Text + "%'";
+        SqlDataAdapter da = new SqlDataAdapter(query, conn);
+        DataSet ds = new DataSet();
+        SqlDataReader dr = new SqlDataReader(da);
+        da.Fill(ds);
+        GridView1.DataSource = ds;
+        GridView1.DataBind();
+        
+    }
+    */
+
+
+    protected void ImageButton5_Click(object sender, ImageClickEventArgs e)
+    {
+
+    }
+    protected void GridView1_RowCommand1(object sender, GridViewCommandEventArgs e)
+    {
+
+    }
+    protected void GridView1_RowCommand2(object sender, GridViewCommandEventArgs e)
+    {
+
+    }
+    protected void ImageButton5_Click1(object sender, ImageClickEventArgs e)
+    {
+         try
+        {
+            
+
+            if (txtPname.Text == "" || txtPtype.Text == "" || txtPrice.Text == "" || txtStock.Text == "")
+            {
+                lblresult.Text = "Please fill up all the information";
+            }
+            else
+            {
+                
+                lblresult.Visible = false;
+                conn.Open();
+               //augid();
+                SqlCommand sqlCmd = conn.CreateCommand();
+                sqlCmd.CommandType = CommandType.Text;
+                sqlCmd.CommandText = "insert into tblStocks values('" + txtPname.Text + "','" + txtPtype.Text + "','" + txtPrice.Text + "','" + txtStock.Text + "')";
+                sqlCmd.ExecuteNonQuery();
+                conn.Close();
+                Response.Redirect("~/testingg.aspx");
+            }
+        }
+        catch (Exception ex)
+        {
+            lblresult.Text = ex.Message;
+        }
+    }
+}

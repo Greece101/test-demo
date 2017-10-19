@@ -1,0 +1,142 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+using System.Data;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Data.Sql;
+using System.IO;
+using System.Collections;
+public partial class Sales : System.Web.UI.Page
+{
+    int rowindex = 0;
+   // SqlConnection con = new SqlConnection("data source=GREECE\\SQLEXPRESS;initial catalog=login_page;trusted_connection=true");
+   // SqlCommand cmd;
+    SqlDataAdapter adapter;
+   // DataSet ds;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        btnO.Enabled = false;
+        btnD.Enabled = false;
+         /*  if (!IsPostBack)
+               Fill();*/
+    }
+  /* public void Fill(){
+        try{
+            cmd =  new SqlCommand("select distinct ProductName,Price from tblSales", con);
+            if(con.State == ConnectionState.Closed) con.Open();
+            adapter = new SqlDataAdapter(cmd);
+            ds =  new DataSet();
+            adapter.Fill(ds, "tblSales");
+            productname.DataSource = ds.Tables[0];
+            productname.DataTextField = "ProductName";
+            productname.DataValueField = "Price";
+            productname.DataBind();
+            cmd.Dispose();
+            adapter.Dispose();
+            ds = null;
+            con.Close();
+        }
+        catch(Exception ex){
+            if(con.State == ConnectionState.Open) con.Close();
+            lblPrice.Text = ex.Message.ToString();
+        }
+    }*/
+
+    protected void btnC_Click(object sender, EventArgs e)
+    {
+        Clear();
+    }
+    public void Clear()
+    {
+       
+       price.Text = "";
+      // GridView10.Text = "";
+     //  GridView9.Text = "";
+      // GridView8.Text = "";
+    //   GridView7.Text = "";
+      // GridView6.Text = "";
+       GridView5.Text = "";
+       GridView4.Text = "";
+       GridView3.Text = "";
+    }
+    protected void btnO_Click(object sender, EventArgs e)
+    {
+        GridView4.Text = productname.SelectedItem.Text;
+        GridView3.Text = price.Text;
+        /*          GridView5.Text = productname.SelectedItem.Text;
+                GridView6.Text = price.Text;
+                GridView7.Text = productname.SelectedItem.Text;
+                GridView8.Text = price.Text;
+                GridView9.Text = productname.SelectedItem.Text;
+                GridView10.Text = price.Text;
+              DataTable dt = new DataTable();
+                DataRow drow;
+                dt.Columns.Add("ProductName");
+                dt.Columns.Add("Price");
+                if(GridView1.Rows.Count > 0)
+                {
+                    for (int i = 0; i < GridView1.Rows.Count - 1; i++)
+                    {
+                        if (GridView1.Rows[i].RowType == DataControlRowType.DataRow)
+                        {
+                            drow = dt.NewRow();
+                            drow["ProductName"] = "";
+                            drow["Price"] = "";
+                            dt.Rows.Add(drow);
+                        }
+                    }
+                }
+                else
+                {
+                    drow = dt.NewRow();
+                    drow["ProductName"] = "";
+                    drow["Price"] = "";
+                    dt.Rows.Add(drow);
+                }
+                GridView1.DataSource = dt;
+                GridView1.DataBind();*/
+   
+       }
+    protected void SqlDataSource1_Selecting(object sender, SqlDataSourceSelectingEventArgs e)
+    {
+        
+    }
+    protected void txtPN_TextChanged(object sender, EventArgs e)
+    {
+
+    }
+    protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
+    protected void productname_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        price.Text = productname.SelectedValue;
+        btnD.Enabled = true;
+        btnO.Enabled = true;
+    }
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+       
+    }
+
+    protected void SqlDataSource1_Selecting1(object sender, SqlDataSourceSelectingEventArgs e)
+    {
+
+    }
+    protected void GridView11_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+
+    }
+}
